@@ -28,7 +28,6 @@ RUN yum update -y \
     && yum install -y java-1.8.0-openjdk \
     && yum clean all -y \
     && yum autoremove -y \
-    && rm -f username password \
     && rm -rf /var/cache/yum
 
 # Bad approach because will be in layer. Newer version of openshift allow using of buildArgs
@@ -37,7 +36,9 @@ COPY password /password
 
 RUN curl -u $(cat /username):$(cat /password) -L ${MAVEN_REPSOTIRY_URL}/services/${VERSION}/service-app-${VERSION}.jar \
   -o ${APP_HOME}/app.jar \
-  && chmod -R g+rwX ${APP_HOME}
+  && chmod -R g+rwX ${APP_HOME} \
+  && rm -f username password
+
 
 USER app
 
