@@ -1,4 +1,4 @@
-FROM library/openjdk:8-jdk-alpine
+FROM centos:7
 MAINTAINER <herzog.thomas81@gmail.com>
 
 ARG VERSION
@@ -31,12 +31,13 @@ RUN mkdir -p ${APP_HOME} \
     &&  useradd --no-create-home --shell /sbin/nologin -g 0 -u 1001 app
 
 RUN yum update -y \
+    && yum install -y java-1.8.0-openjdk \
     && curl -u $(cat /username):$(cat /password) -L ${NEXUS_REPSOTIORY_URL}/services/${VERSION}/service-app-${VERSION}.jar \
       -o ${APP_NAME}/app.jar
     && chmod -R g+rwX ${APP_HOME} \
     && yum clean all -y \
     && yum autoremove -y \
-    && rm -f nexus-* \
+    && rm -f username password \
     && rm -rf /var/cache/yum
 
 USER app
