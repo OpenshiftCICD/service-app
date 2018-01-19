@@ -23,19 +23,21 @@ apply plugin: 'maven-publish'
 //apply plugin: 'com.bmuschko.nexus'
 
 publishing {
-    publications {
-        maven(MavenPublication) {
-            credentials {
-                username "${nexusUsername}"
-                password "${nexusPassword}"
-            }
-            url "${mirrorUrl}"
-            groupId 'services'
-            artifactId 'services-app-10.jar'
-            version '2.1.4'
-            artifact 'build/libs/gs-spring-boot-0.1.0.jar'
-        }
-    }
+  repositories {
+      credentials {
+          username "${nexusUsername}"
+          password "${nexusPassword}"
+      }
+      url "${repositoryUrl}"
+  }
+  publications {
+      maven(MavenPublication) {
+          groupId 'services'
+          artifactId 'services-app-10.jar'
+          version '2.1.4'
+          artifact 'build/libs/gs-spring-boot-0.1.0.jar'
+      }
+  }
 }
 
 jar {
