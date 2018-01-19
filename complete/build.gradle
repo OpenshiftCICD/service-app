@@ -1,11 +1,11 @@
 buildscript {
     repositories {
         mavenCentral()
-        jcenter()
+        //jcenter()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE")
-        classpath("com.bmuschko:gradle-nexus-plugin:2.3.1")
+        //classpath("com.bmuschko:gradle-nexus-plugin:2.3.1")
     }
 }
 
@@ -13,18 +13,44 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
-apply plugin: 'com.bmuschko.nexus'
+apply plugin: 'maven-publish'
+//apply plugin: 'com.bmuschko.nexus'
+
+def repoUrl = "http://nexus:8081/repository/maven-central/"
+
+publishing {
+    repositories {
+        maven {
+            credentials {
+                username "${nexusUsername}"
+                password "${nexusPassword}"
+            }
+            url "${repoUrl}"
+        }
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId 'services'
+            artifactId 'services-app-10.jar'
+            version '2.1.4'
+            artifact 'build/libs/gs-spring-boot-0.1.0.jar'
+        }
+    }
+}
 
 jar {
     baseName = 'gs-spring-boot'
     version =  '0.1.0'
 }
 
-nexus {
+/*nexus {
      sign = false
      repositoryUrl = 'http://nexus:8081/repository/maven-central/'
      //snapshotRepositoryUrl = 'http://localhost:8081/nexus/content/repositories/internal-snapshots/'
- }
+ }*/
 
 repositories {
     mavenCentral()
