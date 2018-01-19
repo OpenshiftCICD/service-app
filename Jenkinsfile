@@ -35,6 +35,7 @@ node {
                             resourceRequestMemory: '1024Mi',
                             resourceLimitMemory: '4096Mi',
                             slaveConnectTimeout: 180
+                            )
         ]) {
             node('jenkins-slave-gradle'){
                 container('jnlp'){
