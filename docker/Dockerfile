@@ -11,9 +11,7 @@ LABEL name="App service" \
       version="1" \
       release="1" \
       run='docker run --name ${NAME} \
-        -p 10389:10389 \
-        -p 10636:10636 \
-        -v ${VOLUME}:/opt/apacheds/instances \
+        -p 8080:8080 \
         -d  \
         ${IMAGE}' \
       io.k8s.description="The app service doing anything" \
