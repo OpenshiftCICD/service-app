@@ -48,7 +48,7 @@ node {
                     //echo sh(returnStdout: true, script: 'env')
                     //echo sh(returnStdout: true, script: 'ls -la')
                     dir('\\complete') {
-                        echo sh(returnStdout: true, script: "gradle -PnexusUsername=$NEXUS_USER -PnexusPassword=$NEXUS_PASSWORD -PmirrorUrl=$NEXUS_MIRROR_URL -PrepositoryUrl=$MAVEN_REPOSITORY_URL jar nexus")
+                        echo sh(returnStdout: true, script: "gradle -PnexusUsername=$NEXUS_USER -PnexusPassword=$NEXUS_PASSWORD -PmirrorUrl=$NEXUS_MIRROR_URL -PrepositoryUrl=$MAVEN_REPOSITORY_URL jar")
                     }
 
                     println "Built    with gradle"
