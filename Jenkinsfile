@@ -22,6 +22,9 @@ node {
     }
 
     stage('Build') {
+        echo sh(returnStdout: true, script: 'env')
+    
+    
         podTemplate(name: 'jenkins-slave-gradle',
                     cloud: 'openshift',
                     containers: [
