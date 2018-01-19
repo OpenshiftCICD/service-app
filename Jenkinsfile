@@ -22,9 +22,8 @@ node {
     }
 
     stage('Build') {
-        echo sh(returnStdout: true, script: 'env')
-        ENV_NEXUS_USERNAME=${env.NEXUS_USER}
-        ENV_NEXUS_PASSWORD=${env.NEXUS_USER}
+        NEXUS_USER="${env.NEXUS_USER}"
+        NEXUS_PASS="${env.NEXUS_PASSWORD}"
     
         podTemplate(name: 'jenkins-slave-gradle',
                     cloud: 'openshift',
@@ -35,22 +34,18 @@ node {
                             resourceLimitCpu: '4000m',
                             resourceRequestMemory: '1024Mi',
                             resourceLimitMemory: '4096Mi',
-                            slaveConnectTimeout: 180,
-                            envVars: [
-                                    secretEnvVar(key: 'NEXUS_USER_KEY', secretName: 'mysql-NEXUS_USER', secretKey: '${env.NEXUS_USER}'),
-                                    secretEnvVar(key: 'NEXUS_PASSWORD_KEY', secretName: 'mysql-NEXUS_PASSWORD', secretKey: '${env.NEXUS_PASSWORD}')
-                                ])
+                            slaveConnectTimeout: 180
         ]) {
             node('jenkins-slave-gradle'){
                 container('jnlp'){
                     println "Unstashing '${STASH_GIT_REPO}'..."
                     unstash STASH_GIT_REPO
                     println "Unstaheed  '${STASH_GIT_REPO}'"
-                    println "POD_ENVS: "
-                    echo sh(returnStdout: true, script: 'env')
+                    //println "POD_ENVS: "
+                    //echo sh(returnStdout: true, script: 'env')
                     //echo sh(returnStdout: true, script: 'ls -la')
                     dir('\\complete') {
-                        echo sh(returnStdout: true, script: 'gradle -DnexusUsername=${env.NEXUS_USER_KEY} -DnexusPassword=${env.NEXUS_PASSWORD_KEY} jar')
+                        echo sh(returnStdout: true, script: "gradle -DnexusUsername=$NEXUS_USER -DnexusPassword=$NEXUS_PASSWORD jar')
                     }
 
                     println "Built    with gradle"
