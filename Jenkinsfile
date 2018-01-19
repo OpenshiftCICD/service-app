@@ -23,7 +23,7 @@ node {
 
     stage('Build') {
         NEXUS_USER="${env.NEXUS_USER}"
-        NEXUS_PASS="${env.NEXUS_PASSWORD}"
+        NEXUS_PASSWORD="${env.NEXUS_PASSWORD}"
     
         podTemplate(name: 'jenkins-slave-gradle',
                     cloud: 'openshift',
