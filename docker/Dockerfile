@@ -24,8 +24,8 @@ ENV APP_HOME="/home/app"
 USER root
 
 # Bad approach because will be in layer. Newer version of openshift allow using of buildArgs
-COPY nexus-user /username
-COPY nexus-password /password
+COPY username /username
+COPY password /password
 
 RUN mkdir -p ${APP_HOME} \
     &&  useradd --no-create-home --shell /sbin/nologin -g 0 -u 1001 app
