@@ -9,9 +9,9 @@ node {
         //dir('\\gittest') {
         //    git credentialsId: 'ci-secret-github-ssh', url: 'git@github.com:spring-guides/gs-spring-boot.git'
         //    GIT_REF = sh returnStdout: true, script: 'git rev-parse --verify HEAD'
-        //    stash name: STASH_GIT_REPO, includes: '**/*'    
+        //    stash name: STASH_GIT_REPO, includes: '**/*'
         //}
-        
+
         println "Stashing git repo..."
         dir('../workspace@script'){
             GIT_REF = sh returnStdout: true, script: 'git rev-parse --verify HEAD'
@@ -24,7 +24,9 @@ node {
     stage('Build') {
         NEXUS_USER="${env.NEXUS_USER}"
         NEXUS_PASSWORD="${env.NEXUS_PASSWORD}"
-    
+        NEXUS_MIRROR_URL="${env.MAVEN_MIRROR_URL}"
+        MAVEN_REPOSITORY_URL="${env.MAVEN_REPOSITORY_URL}"
+
         podTemplate(name: 'jenkins-slave-gradle',
                     cloud: 'openshift',
                     containers: [
@@ -46,7 +48,7 @@ node {
                     //echo sh(returnStdout: true, script: 'env')
                     //echo sh(returnStdout: true, script: 'ls -la')
                     dir('\\complete') {
-                        echo sh(returnStdout: true, script: "gradle -PnexusUsername=$NEXUS_USER -PnexusPassword=$NEXUS_PASSWORD jar nexus")
+                        echo sh(returnStdout: true, script: "gradle -PnexusUsername=$NEXUS_USER -PnexusPassword=$NEXUS_PASSWORD -PmirrorUrl=$NEXUS_MIRROR_URL -PrepositoryUrl=$MAVEN_REPOSITORY_URL jar nexus")
                     }
 
                     println "Built    with gradle"
@@ -58,11 +60,11 @@ node {
             }
         }
     }
-    
+
     stage('Cleanup') {
         unstash STASH_BUILD
         dir('\\complete\\build\\libs') {
             echo sh(returnStdout: true, script: 'ls -la')
         }
     }
-} 
+}

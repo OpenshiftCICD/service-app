@@ -16,8 +16,6 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'maven-publish'
 //apply plugin: 'com.bmuschko.nexus'
 
-def repoUrl = "http://nexus:8081/repository/maven-central/"
-
 publishing {
     repositories {
         maven {
@@ -25,7 +23,7 @@ publishing {
                 username "${nexusUsername}"
                 password "${nexusPassword}"
             }
-            url "${repoUrl}"
+            url "${mirrorUrl}"
         }
     }
 }
@@ -37,6 +35,11 @@ publishing {
             artifactId 'services-app-10.jar'
             version '2.1.4'
             artifact 'build/libs/gs-spring-boot-0.1.0.jar'
+            credentials {
+                username "${nexusUsername}"
+                password "${nexusPassword}"
+            }
+            url "${repositoryUrl}"
         }
     }
 }
@@ -68,4 +71,3 @@ dependencies {
     testCompile("org.springframework.boot:spring-boot-starter-test")
     // end::tests[]
 }
-
