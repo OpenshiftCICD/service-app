@@ -1,6 +1,12 @@
 buildscript {
     repositories {
-        mavenCentral()
+        maven {
+            credentials {
+                username "${nexusUsername}"
+                password "${nexusPassword}"
+            }
+            url "${mirrorUrl}"
+        }
         //jcenter()
     }
     dependencies {
@@ -17,29 +23,17 @@ apply plugin: 'maven-publish'
 //apply plugin: 'com.bmuschko.nexus'
 
 publishing {
-    repositories {
-        maven {
+    publications {
+        maven(MavenPublication) {
             credentials {
                 username "${nexusUsername}"
                 password "${nexusPassword}"
             }
             url "${mirrorUrl}"
-        }
-    }
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) {
             groupId 'services'
             artifactId 'services-app-10.jar'
             version '2.1.4'
             artifact 'build/libs/gs-spring-boot-0.1.0.jar'
-            credentials {
-                username "${nexusUsername}"
-                password "${nexusPassword}"
-            }
-            url "${repositoryUrl}"
         }
     }
 }
