@@ -44,7 +44,7 @@ node {
                     //echo sh(returnStdout: true, script: 'env')
                     //echo sh(returnStdout: true, script: 'ls -la')
                     dir('\\complete') {
-                        echo sh(returnStdout: true, script: 'gradle jar')
+                        echo sh(returnStdout: true, script: 'gradle -DnexusUsername=$NEXUS_USER -DnexusPassword=$NEXUS_PASSWORD jar')
                     }
 
                     println "Built    with gradle"
