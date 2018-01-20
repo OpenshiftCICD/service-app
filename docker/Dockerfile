@@ -2,6 +2,7 @@ FROM centos:7
 MAINTAINER <herzog.thomas81@gmail.com>
 
 ARG VERSION
+ARG MAVEN_REPSOTIRY_URL
 
 LABEL name="App service" \
       summary="The app service doing anything" \
@@ -42,4 +43,4 @@ RUN curl -u $(cat /username):$(cat /password) -L ${MAVEN_REPSOTIRY_URL}/services
 
 USER app
 
-CMD exec java -jar app.jar
+CMD exec java -jar ${APP_HOME}/app.jar
