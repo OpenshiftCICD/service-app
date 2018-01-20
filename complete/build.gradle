@@ -27,7 +27,6 @@ repositories {
         }
         url "${mirrorUrl}"
     }
-    //jcenter()
 }
 
 publishing {
@@ -71,3 +70,4 @@ dependencies {
     testCompile("org.springframework.boot:spring-boot-starter-test")
     // end::tests[]
 }
+ 
