@@ -52,7 +52,7 @@ node {
     }
 
     stage('Deploy') {
-      openshiftBuild(buildConfig: 'spring-boot', env: [[ name: 'VERSION', value: '0.1.0' ]], showBuildLogs: "true", verbose: verbose)
+      openshiftBuild(buildConfig: 'spring-boot', env: [[ name: 'VERSION', value: '0.1.0' ]], showBuildLogs: "true")
     }
 
     stage('Cleanup') {
