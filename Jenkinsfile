@@ -61,6 +61,10 @@ node {
         }
     }
 
+    stage('Deploy') {
+      openshiftBuild(buildConfig: 'spring-boot', env: [ [ VERSION: '0.1.0' ] ])
+    }
+    
     stage('Cleanup') {
         unstash STASH_BUILD
         dir('\\complete\\build\\libs') {
