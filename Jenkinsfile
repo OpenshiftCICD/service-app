@@ -5,13 +5,6 @@ node {
         STASH_GIT_REPO="git-repo"
         STASH_BUILD="build-result"
 
-        //echo sh(returnStdout: true, script: 'mkdir -p gittest')
-        //dir('\\gittest') {
-        //    git credentialsId: 'ci-secret-github-ssh', url: 'git@github.com:spring-guides/gs-spring-boot.git'
-        //    GIT_REF = sh returnStdout: true, script: 'git rev-parse --verify HEAD'
-        //    stash name: STASH_GIT_REPO, includes: '**/*'
-        //}
-
         println "Stashing git repo..."
         dir('../workspace@script'){
             GIT_REF = sh returnStdout: true, script: 'git rev-parse --verify HEAD'
@@ -44,9 +37,6 @@ node {
                     println "Unstashing '${STASH_GIT_REPO}'..."
                     unstash STASH_GIT_REPO
                     println "Unstaheed  '${STASH_GIT_REPO}'"
-                    //println "POD_ENVS: "
-                    //echo sh(returnStdout: true, script: 'env')
-                    //echo sh(returnStdout: true, script: 'ls -la')
                     dir('\\complete') {
                         echo sh(returnStdout: true, script: "gradle -PnexusUsername=$NEXUS_USER -PnexusPassword=$NEXUS_PASSWORD -PmirrorUrl=$NEXUS_MIRROR_URL -PrepositoryUrl=$MAVEN_REPOSITORY_URL jar")
                     }
@@ -62,7 +52,7 @@ node {
     }
 
     stage('Deploy') {
-      openshiftBuild(buildConfig: 'spring-boot', env: [[ name: 'VERSION', value: '0.1.0' ]])
+      openshiftBuild(buildConfig: 'spring-boot', env: [[ name: 'VERSION', value: '0.1.0' ]], showBuildLogs: "true", verbose: verbose)
     }
 
     stage('Cleanup') {
