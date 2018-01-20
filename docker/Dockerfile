@@ -35,7 +35,7 @@ RUN yum update -y \
 COPY username /username
 COPY password /password
 
-RUN curl -u $(cat /username):$(cat /password) -L ${MAVEN_REPSOTIRY_URL}/services/${VERSION}/service-app-${VERSION}.jar \
+RUN curl -f -u $(cat /username):$(cat /password) -L ${MAVEN_REPSOTIRY_URL}/services/services-app/${VERSION}/services-app-${VERSION}.jar \
   -o ${APP_HOME}/app.jar \
   && chmod -R g+rwX ${APP_HOME} \
   && rm -f username password
