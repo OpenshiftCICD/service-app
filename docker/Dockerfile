@@ -2,7 +2,7 @@ FROM centos:7
 MAINTAINER <herzog.thomas81@gmail.com>
 
 ARG VERSION
-ARG MAVEN_REPSOTIRY_URL
+ARG MAVEN_REPOSITORY_URL
 
 LABEL name="App service" \
       summary="The app service doing anything" \
