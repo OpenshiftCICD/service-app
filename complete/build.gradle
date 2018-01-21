@@ -54,6 +54,9 @@ publishing {
 }
 
 jar {
+    manifest {
+        attributes 'Main-Class': 'hello.Application'
+    }
     baseName = 'gs-spring-boot'
     version =  '0.1.0'
 }
