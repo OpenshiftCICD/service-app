@@ -59,7 +59,7 @@ node {
       openshiftBuild(buildConfig: 'spring-boot', showBuildLogs: "true", checkForTriggeredDeployments: "true")
 
       // Verify successful deployment
-      openshiftVerifyDeployment(deploymentConfig: 'spring-boot', replicaCount: "1", verifyReplicaCount: "true", waitTime: "30000")
+      openshiftVerifyDeployment(deploymentConfig: 'spring-boot', replicaCount: "1", verifyReplicaCount: "true", waitTime: "1200000")
     }
 
     stage('Cleanup') {
