@@ -2,7 +2,7 @@ FROM centos:7
 MAINTAINER <herzog.thomas81@gmail.com>
 
 ARG VERSION
-ARG MAVEN_REPSOTIRY_URL
+ARG MAVEN_REPOSITORY_URL
 
 LABEL name="App service" \
       summary="The app service doing anything" \
@@ -35,7 +35,7 @@ RUN yum update -y \
 COPY username /username
 COPY password /password
 
-RUN curl -f -u $(cat /username):$(cat /password) -L ${MAVEN_REPSOTIRY_URL}/services/services-app/${VERSION}/services-app-${VERSION}.jar \
+RUN curl -f -u $(cat /username):$(cat /password) -L ${MAVEN_REPOSITORY_URL}/services/services-app/${VERSION}/services-app-${VERSION}.jar \
   -o ${APP_HOME}/app.jar \
   && chmod -R g+rwX ${APP_HOME} \
   && rm -f username password
