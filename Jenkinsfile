@@ -57,6 +57,9 @@ node {
 
       // Trigger the build config with the new version
       openshiftBuild(buildConfig: 'spring-boot', showBuildLogs: "true", checkForTriggeredDeployments: "true")
+
+      // Verify successful deployment
+      openshiftVerifyDeployment(deploymentConfig: 'spring-boot', replicaCount: "1", verifyReplicaCount: "true", waitTime: "1000")
     }
 
     stage('Cleanup') {
