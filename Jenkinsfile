@@ -38,7 +38,7 @@ node {
                     unstash STASH_GIT_REPO
                     println "Unstaheed  '${STASH_GIT_REPO}'"
                     dir('\\complete') {
-                        echo sh(returnStdout: true, script: "gradle -PnexusUsername=$NEXUS_USER -PnexusPassword=$NEXUS_PASSWORD -PmirrorUrl=$NEXUS_MIRROR_URL -PrepositoryUrl=$MAVEN_REPOSITORY_URL build")
+                        echo sh(returnStdout: true, script: "gradle -PnexusUsername=$NEXUS_USER -PnexusPassword=$NEXUS_PASSWORD -PmirrorUrl=$NEXUS_MIRROR_URL -PrepositoryUrl=$MAVEN_REPOSITORY_URL build publish")
                     }
 
                     println "Built    with gradle"
