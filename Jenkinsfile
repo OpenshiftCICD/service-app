@@ -24,7 +24,7 @@ node {
                     cloud: 'openshift',
                     containers: [
             containerTemplate(name: 'jnlp',
-                            image: 'ci/jenkins-slave-gradle',
+                            image: 'jenkins-slave-gradle',
                             resourceRequestCpu: '500m',
                             resourceLimitCpu: '4000m',
                             resourceRequestMemory: '1024Mi',
@@ -59,7 +59,7 @@ node {
       openshiftBuild(buildConfig: 'spring-boot', showBuildLogs: "true", checkForTriggeredDeployments: "true")
 
       // Verify successful deployment
-      openshiftVerifyDeployment(deploymentConfig: 'spring-boot', replicaCount: "1", verifyReplicaCount: "true", waitTime: "1200000")
+      openshiftVerifyDeployment(deploymentConfig: 'spring-boot', replicaCount: "1", verifyReplicaCount: "true", waitTime: "120000")
     }
 
     stage('Cleanup') {
