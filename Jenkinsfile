@@ -52,7 +52,11 @@ node {
     }
 
     stage('Deploy') {
-      openshiftBuild(buildConfig: 'spring-boot', env: [[ name: 'VERSION', value: '0.1.0' ]], showBuildLogs: "true")
+      // Set app version on app build config
+      echo sh(returnStdout: true, script: "oc env buildconfigs/spring-boot VERSION=1.0.0")
+
+      // Trigger the build config with the new version
+      openshiftBuild(buildConfig: 'spring-boot', showBuildLogs: "true", checkForTriggeredDeployments: "true")
     }
 
     stage('Cleanup') {
