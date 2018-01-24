@@ -8,7 +8,7 @@ public class HelloController {
     
     @RequestMapping("/")
     public String index() {
-        return "Greetings from Spring Boot - CLC3!";
+        return "Greetings from Spring Boot - new deployed app for CLC3";
     }
     
 }
