@@ -10,5 +10,5 @@ public class HelloController {
     public String index() {
         return "Greetings from Spring Boot - new deployed app for CLC3";
     }
-    
+
 }
